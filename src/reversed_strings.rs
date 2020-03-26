@@ -1,6 +1,6 @@
 #[allow(dead_code)]
 fn solution(phrase: &str) -> String {
-    return phrase.chars().rev().collect();
+    phrase.chars().rev().collect()
 }
 
 #[cfg(test)]

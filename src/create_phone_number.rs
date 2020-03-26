@@ -1,7 +1,7 @@
 #[allow(dead_code)]
 fn create_phone_number(numbers: &[u8]) -> String {
     let s: String = numbers.iter().map(|n| n.to_string()).collect();
-    return format!("({}) {}-{}", &s[..3], &s[3..6], &s[6..]);
+    format!("({}) {}-{}", &s[..3], &s[3..6], &s[6..])
 }
 
 #[cfg(test)]

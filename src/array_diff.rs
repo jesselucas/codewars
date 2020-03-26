@@ -1,6 +1,6 @@
 #[allow(dead_code)]
 fn array_diff<T: PartialEq + Copy>(a: Vec<T>, b: Vec<T>) -> Vec<T> {
-    return a.into_iter().filter(|n| !b.contains(n)).collect();
+    a.into_iter().filter(|n| !b.contains(n)).collect()
 }
 
 #[cfg(test)]
