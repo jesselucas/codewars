@@ -1,3 +1,4 @@
+mod build_a_pile_of_cubes;
 mod array_diff;
 mod convert_number_to_reversed_array;
 mod counting_sheep;
