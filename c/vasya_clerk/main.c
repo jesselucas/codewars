@@ -9,8 +9,26 @@ int cash_register[REGISTER_LENGTH];
 void
 empty_register(int length, int *array) 
 {
+	if (length > REGISTER_LENGTH) {
+		return;
+	}
 	for(int i = 0; i < length; i++) {
 		array[i] = 0;
+	}
+}
+
+void
+remove_cash_at(int length, int *array, int index) 
+{
+	if (length > REGISTER_LENGTH) {
+		return;
+	}
+
+	// Set to 0 and shift everyting after to the left
+	array[index] = 0;
+	
+	for(int i = index; i < length; i++) {
+		array[i] = array[i + 1];
 	}
 }
 
@@ -44,9 +62,10 @@ add_cash(int length, int cash) {
 	return 0;
 }
 
-
 int 
 tickets(size_t length, const int people[length]) {
+	empty_register(REGISTER_LENGTH, cash_register);
+
 	int ticketed = 0;
 	if (people[0] != ticket_price) {
 		return 0;
@@ -70,16 +89,16 @@ tickets(size_t length, const int people[length]) {
 		// Check all cash in register	
 		for(int j = 0; j < ticketed; j++) {
 			if (cash_register[j] <= change_due) {
-				// remove from cash and return true
 				change_due = change_due - cash_register[j];
-				cash_register[j] = 0; // remove from register
+				// cash_register[j] = 0; // remove from register
+				remove_cash_at(ticketed, cash_register, j);
 				if (change_due == 0) {
 					ticketed++; // increment ticketed
 					break;	
 				}
 			} 
 		}	
-
+		printf("ticketed %i\n", ticketed);
 		// add to cash
 		int err = add_cash(length, cash);
 		if (err < 0) {
@@ -95,22 +114,17 @@ tickets(size_t length, const int people[length]) {
 
 int 
 main(void) {
-	printf("RESULT: %d\n", tickets(3, (int[]){50, 25, 50})); // 0
-	empty_register(REGISTER_LENGTH, cash_register);
-
-	printf("RESULT: %d\n", tickets(3, (int[]){25, 25, 50})); // 1
-	empty_register(REGISTER_LENGTH, cash_register);
-
-	printf("RESULT: %d\n", tickets(6, (int[]){25, 25, 25, 25, 50, 50})); // 1
-	empty_register(REGISTER_LENGTH, cash_register);
-
-	printf("RESULT: %d\n", tickets(8, (int[]){25, 25, 25, 25, 50, 50, 25, 100})); // 1
-	empty_register(REGISTER_LENGTH, cash_register);
-
-	printf("RESULT: %d\n", tickets(2, (int[]){25, 100})); // 0
-	empty_register(REGISTER_LENGTH, cash_register);
-
-	printf("RESULT: %d\n", tickets(7, (int[]){25, 25, 25, 25, 50, 100, 50})); // 1
+	printf("Expected: 0, Result: %d\n", tickets(3, (int[]){50, 25, 50})); // 0
+	printf("Expected: 1, Result: %d\n", tickets(3, (int[]){25, 25, 50})); // 1
+	printf("Expected: 1, Result: %d\n", tickets(4, (int[]){25, 25, 50, 100})); // 1
+//	printf("Expected: 1, Result: %d\n", tickets(6, (int[]){25, 25, 25, 25, 50, 50})); // 1
+//	printf("Expected: 1, Result: %d\n", tickets(8, (int[]){25, 25, 25, 25, 50, 50, 25, 100})); // 1
+//	printf("Expected: 0, Result: %d\n", tickets(2, (int[]){25, 100})); // 0
+//	printf("Expected: 1, Result: %d\n", tickets(7, (int[]){25, 25, 25, 25, 50, 100, 50})); // 1
+//	printf("Expected: 1, Result: %d\n", tickets(17, (int[]){25, 25, 25, 50, 25, 50, 50, 25, 100, 25, 25, 100, 50, 100, 25, 50, 25}));
+	for(int i=0; i < 20; i++) {
+		printf("value: %i\n", cash_register[i]);
+	}
 
 	return 0;
 }
