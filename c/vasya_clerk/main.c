@@ -16,6 +16,22 @@ empty_register(int length, int *array)
 		array[i] = 0;
 	}
 }
+void
+order_register(int length, int *array)
+{
+	if (length > REGISTER_LENGTH) {
+		return;
+	}
+	for(int i = 0; i < length; i++) {
+		if (array[i] == 0) {
+			// Shift everything to the left
+			for(int j = i; j < length; j++) {
+				array[j] = array[j + 1];
+			}
+		}
+	}
+}
+
 
 void
 remove_cash_at(int length, int *array, int index) 
@@ -90,15 +106,18 @@ tickets(size_t length, const int people[length]) {
 		for(int j = 0; j < ticketed; j++) {
 			if (cash_register[j] <= change_due) {
 				change_due = change_due - cash_register[j];
-				// cash_register[j] = 0; // remove from register
-				remove_cash_at(ticketed, cash_register, j);
+				cash_register[j] = 0; // remove from register
+				// remove_cash_at(ticketed, cash_register, j);
 				if (change_due == 0) {
 					ticketed++; // increment ticketed
 					break;	
 				}
 			} 
 		}	
-		printf("ticketed %i\n", ticketed);
+		// Order cash 
+		order_register(ticketed, cash_register);	
+
+		// printf("ticketed %i\n", ticketed);
 		// add to cash
 		int err = add_cash(length, cash);
 		if (err < 0) {
@@ -117,14 +136,17 @@ main(void) {
 	printf("Expected: 0, Result: %d\n", tickets(3, (int[]){50, 25, 50})); // 0
 	printf("Expected: 1, Result: %d\n", tickets(3, (int[]){25, 25, 50})); // 1
 	printf("Expected: 1, Result: %d\n", tickets(4, (int[]){25, 25, 50, 100})); // 1
-//	printf("Expected: 1, Result: %d\n", tickets(6, (int[]){25, 25, 25, 25, 50, 50})); // 1
-//	printf("Expected: 1, Result: %d\n", tickets(8, (int[]){25, 25, 25, 25, 50, 50, 25, 100})); // 1
-//	printf("Expected: 0, Result: %d\n", tickets(2, (int[]){25, 100})); // 0
-//	printf("Expected: 1, Result: %d\n", tickets(7, (int[]){25, 25, 25, 25, 50, 100, 50})); // 1
-//	printf("Expected: 1, Result: %d\n", tickets(17, (int[]){25, 25, 25, 50, 25, 50, 50, 25, 100, 25, 25, 100, 50, 100, 25, 50, 25}));
-	for(int i=0; i < 20; i++) {
+	printf("Expected: 1, Result: %d\n", tickets(6, (int[]){25, 25, 25, 25, 50, 50})); // 1
+	printf("Expected: 1, Result: %d\n", tickets(8, (int[]){25, 25, 25, 25, 50, 50, 25, 100})); // 1
+	printf("Expected: 0, Result: %d\n", tickets(2, (int[]){25, 100})); // 0
+	printf("Expected: 1, Result: %d\n", tickets(7, (int[]){25, 25, 25, 25, 50, 100, 50})); // 1
+	printf("Expected: 1, Result: %d\n", tickets(17, (int[]){25, 25, 25, 50, 25, 50, 50, 25, 100, 25, 25, 100, 50, 100, 25, 50, 25}));
+
+	/*
+	for(int i=0; i < 5; i++) {
 		printf("value: %i\n", cash_register[i]);
 	}
+	*/
 
 	return 0;
 }
