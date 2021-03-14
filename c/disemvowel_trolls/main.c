@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-// const char *vowels[] = {"a", "e", "i", "o", "u"};
-const char *vowels = "aeiou";
-
 // Solution must allocate all required memory
 // and return a free-able buffer to the caller.
 char *
