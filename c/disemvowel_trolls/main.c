@@ -34,8 +34,6 @@ disemvowel(const char *str)
 			j++;
 		}
 	}
-	// Add null terminator
-	r_str[j] = '\0';
 	return r_str;
 }
 
