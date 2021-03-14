@@ -16,6 +16,7 @@ empty_register(int length, int *array)
 		array[i] = 0;
 	}
 }
+
 void
 order_register(int length, int *array)
 {
@@ -31,7 +32,6 @@ order_register(int length, int *array)
 		}
 	}
 }
-
 
 void
 remove_cash_at(int length, int *array, int index) 
@@ -141,12 +141,6 @@ main(void) {
 	printf("Expected: 0, Result: %d\n", tickets(2, (int[]){25, 100})); // 0
 	printf("Expected: 1, Result: %d\n", tickets(7, (int[]){25, 25, 25, 25, 50, 100, 50})); // 1
 	printf("Expected: 1, Result: %d\n", tickets(17, (int[]){25, 25, 25, 50, 25, 50, 50, 25, 100, 25, 25, 100, 50, 100, 25, 50, 25}));
-
-	/*
-	for(int i=0; i < 5; i++) {
-		printf("value: %i\n", cash_register[i]);
-	}
-	*/
 
 	return 0;
 }
