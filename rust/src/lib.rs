@@ -6,3 +6,4 @@ mod make_the_deadfish_swim;
 mod playing_on_a_chessboard;
 mod reversed_strings;
 mod who_likes_it;
+mod sum_of_digits;
