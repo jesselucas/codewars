@@ -1,20 +1,26 @@
 #[allow(dead_code)]
+// Base 10 radix, radix - 1 = 9
 fn digital_root(n: i64) -> i64 {
+    (n - 1) % 9 + 1
+}
+
+#[allow(dead_code)]
+fn digital_root_orig(n: i64) -> i64 {
     let d = digits(n);
     let mut sum = 0;
     let mut place = 1;
     if d > 1 {
         for _ in 0..d {
-            sum += place_val(n, place);  
+            sum += place_val(n, place);
             place *= 10;
         }
     }
-    
+
     if digits(sum) > 1 {
         println!("here sum? {}", sum);
         return digital_root(sum);
     }
-    
+
     sum
 }
 
