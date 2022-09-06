@@ -8,3 +8,4 @@ mod reversed_strings;
 mod who_likes_it;
 mod sum_of_digits;
 mod decode_the_morse_code;
+mod trailing_zeros_of_n;
